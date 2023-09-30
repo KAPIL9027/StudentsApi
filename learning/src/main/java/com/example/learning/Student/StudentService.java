@@ -1,19 +1,27 @@
 package com.example.learning.Student;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.time.LocalDate;
 import java.util.List;
 
+@Service
 public class StudentService {
+    public StudentService(StudentRepository sr) {
+        this.sr = sr;
+    }
 
-    public List<Student> getStudents(){
-        return List.of(new Student(
-                        1,
-                        "Roman Reigns",
-                        LocalDate.of(1997,5,23)),
-                new Student(
-                        2,
-                        "Tom Reigns",
-                        LocalDate.of(1997,5,23))
-        );
+    @Autowired
+    private StudentRepository sr;
+    public List<StudentEntity> getStudents(){
+        List<StudentEntity> st = sr.findAll();
+
+        return st;
+    }
+
+    public void addNewStudent(StudentEntity se) {
+        System.out.println(se);
+        sr.save(se);
     }
 }

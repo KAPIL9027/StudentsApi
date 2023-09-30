@@ -1,26 +1,39 @@
 package com.example.learning.Student;
 
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping(path="/api/student")
+@RequestMapping(path="/api/v1/student")
 public class StudentController
 {
+
+    @Autowired
     private  StudentService ss;
-    public StudentController() {
-        ss = new StudentService();
+    public StudentController(StudentService s1) {
+        this.ss = s1;
     }
     public StudentService getStudentService(){
         return ss;
     }
+
+
     @GetMapping
-    public List<Student> getStudents(){
-        return ss.getStudents();
+    public List<StudentEntity> getStudents(){
+
+        List<StudentEntity> list = ss.getStudents();
+        System.out.println(list);
+        return list;
+    }
+
+    @PostMapping
+    public void addNewStudent(@RequestBody StudentEntity se){
+        ss.addNewStudent(se);
     }
 }
