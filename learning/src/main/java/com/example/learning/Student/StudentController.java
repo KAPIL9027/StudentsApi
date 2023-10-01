@@ -36,4 +36,14 @@ public class StudentController
     public void addNewStudent(@RequestBody StudentEntity se){
         ss.addNewStudent(se);
     }
+
+    @DeleteMapping(path="{studentId}")
+    public void deleteStudentById(@PathVariable("studentId") Long id){
+        ss.deleteStudentById(id);
+    }
+
+    @PutMapping(path="{studentId}")
+    public void updateStudentById(@PathVariable("studentId") Long id, @RequestParam(required = false) String studentName){
+        ss.updateStudentById(id,studentName);
+    }
 }
